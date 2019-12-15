@@ -1,0 +1,109 @@
+<table style="width: 100%;" mat-table [dataSource]="clubs" class="mat-elevation-z1">
+  <ng-container matColumnDef="checked">
+    <th mat-header-cell *matHeaderCellDef>
+      <a class="checkbox" *ngIf="isAllSelected() === 'full'" (click)="checkAll(false)">
+        check_box
+      </a>
+      <a class="checkbox" *ngIf="isAllSelected() === 'empty'" (click)="checkAll(true)">
+        check_box_outline_blank
+      </a>
+      <a class="checkbox" *ngIf="isAllSelected() === 'inter'" (click)="checkAll(true)">
+        indeterminate_check_box
+      </a>
+    </th>
+    <td mat-cell *matCellDef="let element" (click)="element.checked = !element.checked">
+      <a class="checkbox" *ngIf="element.checked">
+        check_box
+      </a>
+      <a class="checkbox" *ngIf="!element.checked">
+        check_box_outline_blank
+      </a>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> No. </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+  <ng-container matColumnDef="countryId">
+    <th mat-header-cell *matHeaderCellDef> Country </th>
+    <td mat-cell *matCellDef="let element"> {{getCountryById(element.countryId)}} </td>
+  </ng-container>
+  <ng-container matColumnDef="yearOfFoundation">
+    <th mat-header-cell *matHeaderCellDef> Year Of Foundation </th>
+    <td mat-cell *matCellDef="let element"> {{element.yearOfFoundation}} </td>
+  </ng-container>
+  <ng-container matColumnDef="numberOfGroup">
+    <th mat-header-cell *matHeaderCellDef> Number Of Group </th>
+    <td mat-cell *matCellDef="let element"> {{element.numberOfGroup}} </td>
+  </ng-container>
+  <ng-container matColumnDef="expectingMoney">
+    <th mat-header-cell *matHeaderCellDef> Expecting Money (mln$) </th>
+    <td mat-cell *matCellDef="let element"> {{element.expectingMoney}} </td>
+  </ng-container>
+  <ng-container matColumnDef="edit-button">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-flat-button color="accent" (click)="onEditClicked(element)">Edit</button>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="delete-button">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-flat-button color="warn" (click)="delete(element._id)">Delete</button>
+    </td>
+  </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<section>
+  <button mat-flat-button color="primary" *ngIf="!mode" (click)="onAddClicked()">Add</button>
+</section>
+<mat-form-field *ngIf="addForm" [formGroup]="addForm">
+  Add club
+  <section>
+    <input matInput placeholder="Name" formControlName="name">
+    <mat-error *ngIf="addForm.get('name').touched && addForm.get('name').hasError('required')">
+      Name is <strong>required</strong>
+    </mat-error>
+  </section>
+  <section>
+    <mat-form-field>
+      <mat-label>Country</mat-label>
+      <mat-select formControlName="countryId">
+        <mat-option *ngFor="let country of countries" [value]="country._id">
+          {{country.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="addForm.get('countryId').touched && addForm.get('countryId').hasError('required')">
+        Country is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </section>
+  <section>
+    <input matInput placeholder="Next match date" formControlName="nextMatchDay">
+    <mat-error *ngIf="addForm.get('nextMatchDay').touched && addForm.get('nextMatchDay').hasError('required')">
+      Next match date is <strong>required</strong>
+    </mat-error>
+  </section>
+  <section>
+    <input type="number" matInput placeholder="Number Of Group" formControlName="numberOfGroup">
+    <mat-error *ngIf="addForm.get('numberOfGroup').touched && addForm.get('numberOfGroup').hasError('required')">
+      Number Of Group is <strong>required</strong>
+    </mat-error>
+  </section>
+  <section>
+    <input type="number" matInput placeholder="Expecting Money" formControlName="expectingMoney">
+    <mat-error *ngIf="addForm.get('expectingMoney').touched && addForm.get('expectingMoney').hasError('required')">
+      Expecting Money is <strong>required</strong>
+    </mat-error>
+  </section>
+  <button mat-flat-button color="primary" *ngIf="mode === 'add'" (click)="addCountry()">Add</button>
+  <button mat-flat-button color="primary" *ngIf="mode === 'edit'" (click)="editCountry()">Edit</button>
+  <button mat-flat-button (click)="closeForm()">Close</button>
+</mat-form-field>

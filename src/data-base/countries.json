@@ -1,0 +1,28 @@
+[{
+    "id": 1,
+    "name": "Belarus",
+    "countryCode": 375,
+    "isoCode": "BY / BLR",
+    "population": 9685000,
+    "area": 207600,
+    "gdp": 69.24
+  },
+  {
+    "id": 2,
+    "name": "Spain",
+    "countryCode": 34,
+    "isoCode": "ES / ESP",
+    "population": 46505963,
+    "area": 504782,
+    "gdp": 1356
+  },
+  {
+    "id": 3,
+    "name": "Germany",
+    "countryCode": 49,
+    "isoCode": "DE / DEU",
+    "population": 81802257,
+    "area": 357021,
+    "gdp": 3593
+  }
+]

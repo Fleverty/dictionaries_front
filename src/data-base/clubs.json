@@ -1,0 +1,22 @@
+[{
+  "id": 1,
+  "name": "Bayern Munchen",
+  "countryId": 3,
+  "yearOfFoundation": "18.12.1899",
+  "numberOfGroup": 1,
+  "expectingMoney": 19.4
+}, {
+  "id": 2,
+  "name": "Barcelona",
+  "countryId": 2,
+  "yearOfFoundation": "18.12.1919",
+  "numberOfGroup": 3,
+  "expectingMoney": 25.1
+}, {
+  "id": 3,
+  "name": "BATE",
+  "countryId": 1,
+  "yearOfFoundation": "18.12.1934",
+  "numberOfGroup": 2,
+  "expectingMoney": 20.5
+}]
